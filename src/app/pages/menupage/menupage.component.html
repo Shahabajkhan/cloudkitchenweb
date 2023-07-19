@@ -1,0 +1,48 @@
+<div class="container mt-5 mb-5">
+
+    <div class="row">
+
+       
+        <div class="col-lg-6" *ngIf="menuData">
+            <a routerLink="../../menu" class="btn btn-sm btn-dark mb-3">Back</a>
+            <img src="{{menuData[0].foodImg}}" width="100%"/>
+            <h1 class="mt-3">{{menuData[0].foodName}}</h1>
+            <p>{{menuData[0].foodDetails}}</p>
+            <p>{{menuData[0].foodPrice | currency:"INR"}}</p>
+        </div>
+
+
+        <div class="col-lg-6 col-12">
+            <h1>Enter Your Details</h1>
+            <form #form="ngForm" (ngSubmit)="addOrder()" >
+              <!-- placeholder="Enter Your foodname" -->
+              
+  
+  
+              <div class="col mb-3">
+                <input type="text" required #name="ngModel" id="name" name="name" #firstname="ngModel" required minlength="8" class="form-control" [(ngModel)]="addOrderRequest.Name" placeholder="Enter Your Full Name">
+                <div *ngIf="name.errors && (name.valid || name.touched)">
+                  <small class="text-danger" *ngIf="name.errors?.['required']">*</small>
+                  <small class="text-danger" *ngIf="name.errors?.['minlength']">must be minimum 3 character</small>
+              </div>
+              </div>
+              <div class="col mb-3">
+                <input type="tel"  required #name="ngModel"  class="form-control" id="mobile" name="mobile" #mobile="ngModel" required minlength="11"  maxlength="11" [(ngModel)]="addOrderRequest.Number" placeholder="Enter Your Mobile" />
+                <div *ngIf="mobile.errors && (mobile.valid || mobile.touched)">
+                  <small class="text-danger" *ngIf="mobile.errors?.['required']">*</small>
+                  <small class="text-danger" *ngIf="mobile.errors?.['minlength']">must be minimum 10 dig</small>
+                  <small class="text-danger" *ngIf="mobile.errors?.['maxlength']">must be only 10 dig</small>
+              </div>
+              </div>
+              <div class="col mb-3">
+                <textarea required #name="ngModel" id="address" name="address" #address="ngModel" class="form-control" [(ngModel)]="addOrderRequest.Address" placeholder="Enter Your Address"></textarea>
+                <div *ngIf="address.errors && (address.valid || address.touched)">
+                  <small class="text-danger" *ngIf="address.errors?.['required']">*</small>
+              </div>
+            </div>
+                <button type="submit"  [disabled]="form.invalid" class="btn btn-md btn-dark mt-3">Place Order</button>
+  
+            </form>
+  
+  
+        </div>
